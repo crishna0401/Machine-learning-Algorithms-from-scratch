@@ -19,3 +19,4 @@ class gaussianNB():
         y_pred_prob[x] = np.sum((i- self.mean[x])**2/ (2*(self.std[x])**2))
     y_pred.append(max(y_pred_prob,key=y_pred_prob.get))               # selecting the class which has max probability
     return y_pred
+ 
