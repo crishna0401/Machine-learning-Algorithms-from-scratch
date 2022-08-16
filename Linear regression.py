@@ -2,9 +2,10 @@ import numpy as np
 
 class LinearRegression():
 
-  def __init__(self,lr,tolerance):
+  def __init__(self,lr,tolerance,max_iter):
     self.lr = lr
     self.tolerance = tolerance
+    self.max_iter = max_iter
 
   def fit(self,X,y):
     # Append ones column so that we account for bias term 
@@ -23,7 +24,7 @@ class LinearRegression():
     loss = np.linalg.norm(y-y_pred)
 
     ###### Run a simple gradient descent loop for minimising loss #######
-    while loss>self.tolerance:
+    while loss>self.tolerance and self.max_iter:
       gradient = -2*(X.T @ (y-y_pred))
 
       # update the parameters
@@ -32,6 +33,8 @@ class LinearRegression():
       # with the updated parameters predict the output again and update loss
       y_pred = self.predict(X)
       loss = np.linalg.norm(y-y_pred)
+      
+      self.max_iter-=1
 
     return loss,self.w
 
